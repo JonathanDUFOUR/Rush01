@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err_msg.c                                          :+:      :+:    :+:   */
+/*   r1_res_allocate.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 19:16:34 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 00:18:16 by jodufour         ###   ########.fr       */
+/*   Created: 2021/09/19 16:28:45 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:56:35 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include "config.h"
 
-int	err_msg(int	err_code)
+int	**r1_grid_allocate(void)
 {
-	if (err_code == WRONG_ARGC)
-		ft_putendl("\e[31mError: Wrong argument count\e[0m");
-	else if (err_code == WRONG_ARGV)
-		ft_putendl("\e[31mError: Wrong input value\e[0m");
-	else if (err_code == NO_SOLVE)
-		ft_putendl("\e[31mError: No solution for this input\e[0m");
-	else
-		ft_putendl("\e[31mError: Unknown error code\e[0m");
-	return (err_code);
+	int	**grid;
+	int	i;
+
+	grid = malloc(GRID_SIZE * sizeof(int *));
+	if (!grid)
+		return (NULL);
+	i = 0;
+	while (i < GRID_SIZE)
+	{
+		grid[i] = malloc(GRID_SIZE * sizeof(int));
+		if (!grid[i])
+		{
+			while (i)
+				free(grid[i--]);
+			free(grid[i]);
+			return (NULL);
+		}
+		++i;
+	}
+	return (grid);
 }

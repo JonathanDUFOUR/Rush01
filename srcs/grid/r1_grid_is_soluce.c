@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_res_soluce.c                                    :+:      :+:    :+:   */
+/*   r1_res_is_soluce.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 00:32:41 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 01:13:55 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/09/19 17:58:24 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#include <stdbool.h>
+#include "config.h"
 
-bool	check_col(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
+static bool	check_col(int **grid, int i, char const *inputs)
 {
 	int	last_seen;
 	int	count;
@@ -23,16 +24,16 @@ bool	check_col(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
 	j = -1;
 	while (++j < GRID_SIZE)
 	{
-		if (res[j][i] > last_seen)
+		if (grid[j][i] > last_seen)
 		{	
 			++count;
-			last_seen = res[j][i];
+			last_seen = grid[j][i];
 		}
 	}
 	return (count == (inputs[2 * i] - '0'));
 }
 
-bool	check_col_rev(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
+static bool	check_col_rev(int **grid, int i, char const *inputs)
 {
 	int	last_seen;
 	int	count;
@@ -43,16 +44,16 @@ bool	check_col_rev(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
 	j = GRID_SIZE;
 	while (--j >= 0)
 	{
-		if (res[j][i] > last_seen)
+		if (grid[j][i] > last_seen)
 		{	
 			++count;
-			last_seen = res[j][i];
+			last_seen = grid[j][i];
 		}
 	}
 	return (count == (inputs[8 + 2 * i] - '0'));
 }
 
-bool	check_line(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
+static bool	check_line(int **grid, int i, char const *inputs)
 {
 	int	last_seen;
 	int	count;
@@ -63,16 +64,16 @@ bool	check_line(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
 	j = -1;
 	while (++j < GRID_SIZE)
 	{
-		if (res[i][j] > last_seen)
+		if (grid[i][j] > last_seen)
 		{	
 			++count;
-			last_seen = res[i][j];
+			last_seen = grid[i][j];
 		}
 	}
 	return (count == (inputs[16 + 2 * i] - '0'));
 }
 
-bool	check_line_rev(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
+static bool	check_line_rev(int **grid, int i, char const *inputs)
 {
 	int	last_seen;
 	int	count;
@@ -83,27 +84,28 @@ bool	check_line_rev(int res[GRID_SIZE][GRID_SIZE], int i, char const *inputs)
 	j = GRID_SIZE;
 	while (--j >= 0)
 	{
-		if (res[i][j] > last_seen)
+		if (grid[i][j] > last_seen)
 		{	
 			++count;
-			last_seen = res[i][j];
+			last_seen = grid[i][j];
 		}
 	}
 	return (count == (inputs[24 + 2 * i] - '0'));
 }
 
-bool	is_res_soluce(int res[GRID_SIZE][GRID_SIZE], char const *inputs)
+bool	r1_grid_is_soluce(int **grid, char const *inputs)
 {
 	int	i;
 
-	i = -1;
-	while (++i < GRID_SIZE)
+	i = 0;
+	while (i < GRID_SIZE)
 	{
-		if (!check_col(res, i, inputs)
-			|| !check_col_rev(res, i, inputs)
-			|| !check_line(res, i, inputs)
-			|| !check_line_rev(res, i, inputs))
+		if (!check_col(grid, i, inputs)
+			|| !check_col_rev(grid, i, inputs)
+			|| !check_line(grid, i, inputs)
+			|| !check_line_rev(grid, i, inputs))
 			return (false);
+		++i;
 	}
 	return (true);
 }

@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 19:12:40 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/20 19:18:39 by jodufour         ###   ########.fr       */
+/*   Created: 2021/09/19 15:38:39 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 15:59:10 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#ifndef COLORS_H
+# define COLORS_H
 
-void	ft_putendl(const char *s)
-{
-	write(1, s, ft_strlen(s));
-	write(1, "\n", 1);
-}
+# define RED "\e[31m"
+# define GREEN "\e[32m"
+# define YELLOW "\e[33m"
+# define WHITE "\e[0m"
+
+#endif

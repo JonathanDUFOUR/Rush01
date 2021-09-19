@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotates.h                                          :+:      :+:    :+:   */
+/*   rotates_array.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:07:41 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/20 22:40:33 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/09/19 17:23:40 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ROTATES_H
-# define ROTATES_H
+#ifndef ROTATES_ARRAY_H
+# define ROTATES_ARRAY_H
 
-# include "rush01.h"
+# include "config.h"
 
-int const	g_rotates[ROTATES_SIZE][GRID_SIZE] = {
+# define ROTATES_SIZE 24
+
+static int const	g_rotates[ROTATES_SIZE][GRID_SIZE] = {
 	{1, 2, 3, 4},
 	{1, 2, 4, 3},
 	{1, 3, 2, 4},

@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   e_ret.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 21:28:01 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 00:22:58 by jodufour         ###   ########.fr       */
+/*   Created: 2021/09/19 15:29:55 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 16:27:11 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#ifndef E_RET_H
+# define E_RET_H
 
-int	check_input(char const *s)
+enum	e_ret
 {
-	char const	*p;
-	int			i;
+	SUCCESS,
+	AC_ERR,
+	AV_ERR,
+	MALLOC_ERR,
+	NO_SOLVE
+};
 
-	p = s;
-	i = 0;
-	while (*p)
-	{
-		if ((i % 2 && *p != ' ') || (!(i % 2) && (*p > '4' || *p < '1')))
-			return (WRONG_ARGV);
-		++i;
-		++p;
-	}
-	if ((p - s) != 31)
-		return (WRONG_ARGV);
-	return (SUCCESS);
-}
+#endif

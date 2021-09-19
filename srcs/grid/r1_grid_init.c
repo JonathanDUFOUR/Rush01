@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   r1_res_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:57:01 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/20 23:40:33 by jodufour         ###   ########.fr       */
+/*   Created: 2021/03/20 22:48:44 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:57:17 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
+#include "config.h"
 
-void	ft_putnbr(int n)
+void	r1_grid_init(int **grid)
 {
-	unsigned int	abs;
-	char			d;
+	int	i;
+	int	j;
 
-	abs = n;
-	if (n < 0)
+	i = 0;
+	while (i < GRID_SIZE)
 	{
-		write(1, "-", 1);
-		abs = -n;
+		j = 0;
+		while (j < GRID_SIZE)
+		{
+			grid[i][j] = 0;
+			++j;
+		}
+		++i;
 	}
-	if (abs > 9)
-		ft_putnbr(abs / 10);
-	d = abs % 10 + '0';
-	ft_putchar(d);
 }

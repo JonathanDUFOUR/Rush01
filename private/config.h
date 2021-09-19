@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:55:37 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/20 22:56:02 by jodufour         ###   ########.fr       */
+/*   Created: 2021/09/19 17:23:25 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:23:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#ifndef CONFIG_H
+# define CONFIG_H
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+# define GRID_SIZE 4
+
+#endif

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush.c                                             :+:      :+:    :+:   */
+/*   r1_res_fill.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 21:42:45 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 12:42:13 by jodufour         ###   ########.fr       */
+/*   Created: 2021/03/20 23:18:17 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:56:59 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
+#include "rotates_array.h"
 
-int	rush(char const *inputs)
+void	r1_grid_fill(int **grid, int *current, int j)
 {
-	int	res[GRID_SIZE][GRID_SIZE];
-	int	ret;
+	int	k;
 
-	init_res(res);
-	ret = solve(res, inputs);
-	if (ret != SUCCESS)
-		return (ret);
-	print_res(res, inputs);
-	return (SUCCESS);
+	k = 0;
+	while (k < GRID_SIZE)
+	{
+		grid[j][k] = g_rotates[current[j]][k];
+		++k;
+	}
 }

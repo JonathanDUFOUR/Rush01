@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   r1_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 19:14:16 by jodufour          #+#    #+#             */
-/*   Updated: 2021/09/19 17:52:37 by jodufour         ###   ########.fr       */
+/*   Created: 2021/03/20 22:57:01 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:53:07 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
-#include "enum/e_ret.h"
+#include <unistd.h>
 
-int	main(int ac, char **av)
+void	r1_putnbr(int n)
 {
-	int	ret;
+	unsigned int	abs;
+	char			d;
 
-	ret = SUCCESS;
-	if (ac != 2)
-		ret = AC_ERR;
-	if (ret == SUCCESS)
-		ret = r1_input_check(av[1]);
-	if (ret == SUCCESS)
-		ret = r1_run(av[1]);
-	if (ret != SUCCESS)
-		r1_err_msg(ret);
-	return (SUCCESS);
+	abs = n;
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		abs = -n;
+	}
+	if (abs > 9)
+		r1_putnbr(abs / 10);
+	d = abs % 10 + '0';
+	write(1, &d, 1);
 }

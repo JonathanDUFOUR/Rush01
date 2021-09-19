@@ -5,59 +5,113 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/20 19:02:39 by jodufour          #+#    #+#              #
-#    Updated: 2021/03/21 12:57:01 by jodufour         ###   ########.fr        #
+#    Created: 2021/09/19 15:24:12 by jodufour          #+#    #+#              #
+#    Updated: 2021/09/19 18:01:56 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+######################################
+#              COMMANDS              #
+######################################
+CC		=	clang -c -o
+LINK	=	clang -o
+MKDIR	=	mkdir -p
+RM		=	rm -rf
+
+######################################
+#             EXECUTABLE             #
+######################################
 NAME	=	rush-01
 
-CC		=	gcc -c -o
-LINKER	=	gcc -o
-RM		=	rm -rf
-MAKEDIR	=	mkdir -p
+#######################################
+#             DIRECTORIES             #
+#######################################
+SRC_DIR	=	srcs/
+OBJ_DIR	=	objs/
+PRV_DIR	=	private/
 
-SRCD	=	srcs/
-OBJD	=	objs/
-INCLUDE	=	includes
+######################################
+#            SOURCE FILES            #
+######################################
+SRC		=	\
+			${addprefix grid/,		\
+				r1_grid_allocate.c	\
+				r1_grid_clear.c		\
+				r1_grid_fill.c		\
+				r1_grid_init.c		\
+				r1_grid_is_soluce.c	\
+				r1_grid_is_valid.c	\
+				r1_grid_print.c		\
+			}						\
+			main.c					\
+			r1_err_msg.c			\
+			r1_input_check.c		\
+			r1_putnbr.c				\
+			r1_run.c				\
+			r1_solve.c
 
-SRCS	:=	\
-			check_input.c	\
-			err_msg.c		\
-			fill_res.c		\
-			init_res.c		\
-			is_res_soluce.c	\
-			is_res_valid.c	\
-			main.c			\
-			print_res.c		\
-			rush.c			\
-			solve.c			\
-			ft_strlen.c		\
-			ft_putchar.c	\
-			ft_putendl.c	\
-			ft_putnbr.c		\
-			ft_putstr.c
+######################################
+#            OBJECT FILES            #
+######################################
+OBJ		=	${SRC:.c=.o}
+OBJ		:=	${addprefix ${OBJ_DIR}, ${OBJ}}
 
-OBJS	=	${SRCS:.c=.o}
-OBJS	:=	${addprefix ${OBJD}, ${OBJS}}
+DEP		=	${OBJ:.o=.d}
 
-CFLAGS	=	-Wall -Wextra -I ${INCLUDE}
+#######################################
+#                FLAGS                #
+#######################################
+CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	+=	-MMD -MP
+CFLAGS	+=	-I${PRV_DIR}
 
-${NAME}:	${OBJS}
-	${LINKER} $@ $^
+LDFLAGS	=	
+
+ifeq (${DEBUG}, 1)
+	CFLAGS	+=	-g
+endif
+
+#######################################
+#                RULES                #
+#######################################
+${NAME}:	${OBJ}
+	${LINK} $@ $^ ${LDFLAGS}
 
 all:	${NAME}
 
-${OBJD}%.o:	${SRCD}%.c
-	${MAKEDIR} ${OBJD}
-	${CC} $@ $^ ${CFLAGS}
+-include ${DEP}
+
+${OBJ_DIR}%.o:	${SRC_DIR}%.c
+	@${MKDIR} ${@D}
+	${CC} $@ ${CFLAGS} $<
 
 clean:
-	${RM} ${OBJD}
+	${RM} ${OBJ_DIR}
 
 fclean:
-	${RM} ${OBJD} ${NAME}
+	${RM} ${OBJ_DIR} ${NAME}
 
 re:	fclean all
 
-.PHONY:	all, clean, fclean, re
+coffee:
+	@echo '                                              '
+	@echo '                   "   "                      '
+	@echo '                  " " " "                     '
+	@echo '                 " " " "                      '
+	@echo '         _.-==="-"""""-"===-._                '
+	@echo '        |=___   "~"~"~"   ___=|=,.            '
+	@echo '        |    """======="""    |  \\           '
+	@echo '        |                     |   ||          '
+	@echo '        |                     |   ||          '
+	@echo '        |                     |   ||          '
+	@echo '        |                     |   ||          '
+	@echo '        |                     |  //           '
+	@echo '         \                   /=="`            '
+	@echo '          \                 /                 '
+	@echo '           `"--._______.--"`                  '
+	@echo '                                              '
+
+norm:
+	@norminette ${SRC_DIR} ${PRV_DIR} | grep 'Error' ; true
+
+.PHONY:	all clean fclean re coffee norm

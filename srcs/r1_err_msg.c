@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   r1_err_msg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 19:20:49 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/20 21:27:30 by jodufour         ###   ########.fr       */
+/*   Created: 2021/03/20 19:16:34 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:38:07 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#include <unistd.h>
+#include "colors.h"
+#include "err_msg_lookup.h"
 
-size_t	ft_strlen(char const *s)
+void	r1_err_msg(int const err)
 {
-	register char const	*p;
+	int	i;
 
-	p = s;
-	while (*p)
-		++p;
-	return (p - s);
+	write(2, RED "Error:\n", 12);
+	i = 0;
+	while (g_err_msg[i].msg && err != g_err_msg[i].err)
+		++i;
+	if (g_err_msg[i].msg)
+		write(2, g_err_msg[i].msg, g_err_msg[i].len);
+	write(2, WHITE "\n", 5);
 }

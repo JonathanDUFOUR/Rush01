@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve.c                                            :+:      :+:    :+:   */
+/*   r1_solve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 23:01:25 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 01:32:45 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/09/19 18:04:44 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
+#include "rotates_array.h"
+#include "enum/e_ret.h"
 
-void	init_current(int current[GRID_SIZE])
+static void	init_current(int *current)
 {
 	int	j;
 
-	j = -1;
-	while (++j < GRID_SIZE)
+	j = 0;
+	while (j < GRID_SIZE)
+	{
 		current[j] = 0;
+		++j;
+	}
 }
 
-int	try_next_rotate(int current[GRID_SIZE])
+static int	try_next_rotate(int *current)
 {
 	int	i;
 
-	i = -1;
-	while (++i < GRID_SIZE)
+	i = 0;
+	while (i < GRID_SIZE)
 	{
 		if (current[i] == ROTATES_SIZE - 1)
 			current[i] = 0;
@@ -35,11 +40,12 @@ int	try_next_rotate(int current[GRID_SIZE])
 			++current[i];
 			return (SUCCESS);
 		}
+		++i;
 	}
 	return (NO_SOLVE);
 }
 
-int	solve(int res[GRID_SIZE][GRID_SIZE], char const *inputs)
+int	r1_solve(int **grid, char const *inputs)
 {
 	bool	keep_searching;
 	int		current[GRID_SIZE];
@@ -51,10 +57,10 @@ int	solve(int res[GRID_SIZE][GRID_SIZE], char const *inputs)
 	{
 		j = -1;
 		while (++j < GRID_SIZE)
-			fill_res(res, current, j);
-		if (is_res_valid(res))
+			r1_grid_fill(grid, current, j);
+		if (r1_grid_is_valid(grid))
 		{
-			if (is_res_soluce(res, inputs))
+			if (r1_grid_is_soluce(grid, inputs))
 				keep_searching = false;
 			else
 				if (try_next_rotate(current) == NO_SOLVE)

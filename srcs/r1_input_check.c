@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_res.c                                         :+:      :+:    :+:   */
+/*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:48:44 by jodufour          #+#    #+#             */
-/*   Updated: 2021/03/21 00:22:41 by jodufour         ###   ########.fr       */
+/*   Created: 2021/03/20 21:28:01 by jodufour          #+#    #+#             */
+/*   Updated: 2021/09/19 17:37:14 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rush01.h"
+#include "enum/e_ret.h"
 
-void	init_res(int res[GRID_SIZE][GRID_SIZE])
+int	r1_input_check(char const *s)
 {
-	int	i;
-	int	j;
+	char const	*p = s;
+	int			i;
 
-	i = -1;
-	while (++i < GRID_SIZE)
+	i = 0;
+	while (*p)
 	{
-		j = -1;
-		while (++j < GRID_SIZE)
-			res[i][j] = 0;
+		if ((i % 2 && *p != ' ') || (!(i % 2) && (*p > '4' || *p < '1')))
+			return (AV_ERR);
+		++i;
+		++p;
 	}
+	if ((p - s) != 31)
+		return (AV_ERR);
+	return (SUCCESS);
 }
