@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   r1_res_is_soluce.c                                 :+:      :+:    :+:   */
+/*   r1_grid_is_soluce.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 00:32:41 by jodufour          #+#    #+#             */
-/*   Updated: 2021/09/19 17:58:24 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/09/19 18:27:11 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ static bool	check_col(int **grid, int i, char const *inputs)
 
 	last_seen = 0;
 	count = 0;
-	j = -1;
-	while (++j < GRID_SIZE)
+	j = 0;
+	while (j < GRID_SIZE)
 	{
 		if (grid[j][i] > last_seen)
 		{	
 			++count;
 			last_seen = grid[j][i];
 		}
+		++j;
 	}
 	return (count == (inputs[2 * i] - '0'));
 }
@@ -41,14 +42,15 @@ static bool	check_col_rev(int **grid, int i, char const *inputs)
 
 	last_seen = 0;
 	count = 0;
-	j = GRID_SIZE;
-	while (--j >= 0)
+	j = GRID_SIZE - 1;
+	while (j >= 0)
 	{
 		if (grid[j][i] > last_seen)
 		{	
 			++count;
 			last_seen = grid[j][i];
 		}
+		--j;
 	}
 	return (count == (inputs[8 + 2 * i] - '0'));
 }
@@ -61,14 +63,15 @@ static bool	check_line(int **grid, int i, char const *inputs)
 
 	last_seen = 0;
 	count = 0;
-	j = -1;
-	while (++j < GRID_SIZE)
+	j = 0;
+	while (j < GRID_SIZE)
 	{
 		if (grid[i][j] > last_seen)
 		{	
 			++count;
 			last_seen = grid[i][j];
 		}
+		++j;
 	}
 	return (count == (inputs[16 + 2 * i] - '0'));
 }
@@ -81,14 +84,15 @@ static bool	check_line_rev(int **grid, int i, char const *inputs)
 
 	last_seen = 0;
 	count = 0;
-	j = GRID_SIZE;
-	while (--j >= 0)
+	j = GRID_SIZE - 1;
+	while (j >= 0)
 	{
 		if (grid[i][j] > last_seen)
 		{	
 			++count;
 			last_seen = grid[i][j];
 		}
+		--j;
 	}
 	return (count == (inputs[24 + 2 * i] - '0'));
 }
