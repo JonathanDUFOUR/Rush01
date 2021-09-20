@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 19:14:16 by jodufour          #+#    #+#             */
-/*   Updated: 2021/09/19 17:52:37 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/09/20 18:13:17 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	main(int ac, char **av)
 		ret = r1_run(av[1]);
 	if (ret != SUCCESS)
 		r1_err_msg(ret);
-	return (SUCCESS);
+	return (ret);
 }
