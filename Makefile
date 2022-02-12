@@ -6,7 +6,7 @@
 #    By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:24:12 by jodufour          #+#    #+#              #
-#    Updated: 2021/09/19 18:01:56 by jodufour         ###   ########.fr        #
+#    Updated: 2022/02/12 08:54:29 by jodufour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,44 +74,28 @@ endif
 #######################################
 #                RULES                #
 #######################################
-${NAME}:	${OBJ}
+${NAME}: ${OBJ}
 	${LINK} $@ $^ ${LDFLAGS}
 
-all:	${NAME}
+all: ${NAME}
 
 -include ${DEP}
 
-${OBJ_DIR}%.o:	${SRC_DIR}%.c
+${OBJ_DIR}%.o: ${SRC_DIR}%.c
 	@${MKDIR} ${@D}
 	${CC} $@ ${CFLAGS} $<
 
 clean:
-	${RM} ${OBJ_DIR}
+	${RM} ${OBJ_DIR} ${NAME} vgcore.*
 
 fclean:
-	${RM} ${OBJ_DIR} ${NAME}
+	${RM} ${OBJ_DIR} ${NAME} vgcore.*
 
-re:	fclean all
+re: clean all
 
-coffee:
-	@echo '                                              '
-	@echo '                   "   "                      '
-	@echo '                  " " " "                     '
-	@echo '                 " " " "                      '
-	@echo '         _.-==="-"""""-"===-._                '
-	@echo '        |=___   "~"~"~"   ___=|=,.            '
-	@echo '        |    """======="""    |  \\           '
-	@echo '        |                     |   ||          '
-	@echo '        |                     |   ||          '
-	@echo '        |                     |   ||          '
-	@echo '        |                     |   ||          '
-	@echo '        |                     |  //           '
-	@echo '         \                   /=="`            '
-	@echo '          \                 /                 '
-	@echo '           `"--._______.--"`                  '
-	@echo '                                              '
+fre: fclean all
 
-norm:
-	@norminette ${SRC_DIR} ${PRV_DIR} | grep 'Error' ; true
+-include /home/jodufour/Templates/mk_files/coffee.mk
+-include /home/jodufour/Templates/mk_files/norm.mk
 
-.PHONY:	all clean fclean re coffee norm
+.PHONY: all clean fclean re fre

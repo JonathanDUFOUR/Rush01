@@ -6,13 +6,13 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 19:16:34 by jodufour          #+#    #+#             */
-/*   Updated: 2021/09/19 17:38:07 by jodufour         ###   ########.fr       */
+/*   Updated: 2022/02/12 08:56:10 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "colors.h"
-#include "err_msg_lookup.h"
+#include "lookup_err_msg.h"
 
 void	r1_err_msg(int const err)
 {
